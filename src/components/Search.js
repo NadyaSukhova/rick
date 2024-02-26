@@ -136,7 +136,7 @@ const SearchBar = styled.div`
   }
   @media (max-width: 946px) {
     width: 50%;
-    margin-left: calc(-50% - 1vh);
+    margin-left: calc(-50% - 1.5vh);
   }
   @media (max-width: 651px) {
     width: 70%;
@@ -208,6 +208,8 @@ class Search extends React.Component {
   }
 
   openSearch() {
+    console.log(document.getElementsByClassName("search-bar")[0].offsetWidth /
+    document.getElementById("root").offsetWidth);
     var openWidth = "";
     if (
       document.getElementsByClassName("search-bar")[0].offsetWidth /
@@ -221,7 +223,7 @@ class Search extends React.Component {
           document.getElementById("root").offsetWidth <
         0.7
       ) {
-        openWidth += "calc(-50% - 1vh)";
+        openWidth += "calc(-50% - 1.5vh)";
       } else {
         if (
           document.getElementsByClassName("search-bar")[0].offsetWidth /

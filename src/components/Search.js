@@ -148,16 +148,19 @@ const Body = styled.div`
   backdrop-filter: blur(5px);
 `;
 
-const Header = styled.div`
-  height: fit-content;
-  width: 100%;
-  background-position: center;
-  background-size: auto 100%;
-  background-repeat: no-repeat;
-  background-image: url(${logo1});
+const Img = styled.img`
+  position: absolute;
+  width: 40vh;
+  height: auto;
+  margin-left: calc(50% - 20vh);
+  top: 0;
+  z-index: 1;
   @media (max-width: 1509px) {
-    background-image: url(${logo2});
+    width: 40vw;
+    height: auto;
+    margin-left: calc(50% - 20vw);
   }
+
 `;
 class Search extends React.Component {
   constructor(props) {
@@ -208,25 +211,27 @@ class Search extends React.Component {
   }
 
   openSearch() {
-    console.log(document.getElementsByClassName("search-bar")[0].offsetWidth /
-    document.getElementById("root").offsetWidth);
+    console.log(
+      document.getElementById("search-bar").offsetWidth /
+        document.getElementById("root").offsetWidth
+    );
     var openWidth = "";
     if (
-      document.getElementsByClassName("search-bar")[0].offsetWidth /
+      document.getElementById("search-bar").offsetWidth /
         document.getElementById("root").offsetWidth <
       0.5
     ) {
       openWidth += "calc(-40% - 1.5vh)";
     } else {
       if (
-        document.getElementsByClassName("search-bar")[0].offsetWidth /
+        document.getElementById("search-bar").offsetWidth /
           document.getElementById("root").offsetWidth <
         0.7
       ) {
         openWidth += "calc(-50% - 1.5vh)";
       } else {
         if (
-          document.getElementsByClassName("search-bar")[0].offsetWidth /
+          document.getElementById("search-bar").offsetWidth /
             document.getElementById("root").offsetWidth <
           0.8
         ) {
@@ -236,68 +241,72 @@ class Search extends React.Component {
         }
       }
     }
-    document.getElementsByClassName("search-bar")[0].style.marginLeft !== "0%"
-      ? (document.getElementsByClassName("search-bar")[0].style.marginLeft =
-          "0%")
-      : (document.getElementsByClassName(
-          "search-bar"
-        )[0].style.marginLeft = openWidth);
+    document.getElementById("search-bar").style.marginLeft !== "0%"
+      ? (document.getElementById("search-bar").style.marginLeft = "0%")
+      : (document.getElementById("search-bar").style.marginLeft = openWidth);
+  }
+
+  handleResize() {
+    if (window.innerWidth > 1400) {
+      document.getElementById("logo").src=logo1;
+    }
+    else document.getElementById("logo").src=logo2;
+  }
+
+  componentDidMount() {
+    this.handleResize();
   }
 
   render() {
     return (
-      <Body>
-        <Header>
-          <SearchBar className="search-bar">
-            <Input
-              placeholder="Name"
-              onChange={(event) => this.setState({ name: event.target.value })}
-            />
-            <Select
-              onChange={(event) =>
-                this.setState({ status: event.target.value })
-              }
-            >
-              <option value="" hidden>
-                Status
-              </option>
-              <option value="alive">Alive</option>
-              <option value="dead">Dead</option>
-              <option value="unknown">Unknown</option>
-            </Select>
-            <Input
-              placeholder="Species"
-              onChange={(event) =>
-                this.setState({ species: event.target.value })
-              }
-            />
-            <Input
-              placeholder="Type"
-              onChange={(event) => this.setState({ type: event.target.value })}
-            />
-            <Select
-              onChange={(event) =>
-                this.setState({ gender: event.target.value })
-              }
-            >
-              <option value="" hidden>
-                Gender
-              </option>
-              <option value="female">Female</option>
-              <option value="male">Male</option>
-              <option value="genderless">Genderless</option>
-              <option value="unknown">unknown</option>
-            </Select>
-            <Buttons>
-              <SearchButton onClick={this.searchList}>Поиск</SearchButton>
-              <AllButton onClick={this.allList} className="show-all">
-                Все персонажи
-              </AllButton>
-            </Buttons>
-            <OpenButton onClick={this.openSearch}>🔍</OpenButton>
-          </SearchBar>
-        </Header>
+      <Body id="body">
+        <SearchBar id="search-bar">
+          <Input
+            placeholder="Name"
+            onChange={(event) => this.setState({ name: event.target.value })}
+          />
+          <Select
+            onChange={(event) => this.setState({ status: event.target.value })}
+          >
+            <option value="" hidden>
+              Status
+            </option>
+            <option value="alive">Alive</option>
+            <option value="dead">Dead</option>
+            <option value="unknown">Unknown</option>
+          </Select>
+          <Input
+            placeholder="Species"
+            onChange={(event) => this.setState({ species: event.target.value })}
+          />
+          <Input
+            placeholder="Type"
+            onChange={(event) => this.setState({ type: event.target.value })}
+          />
+          <Select
+            onChange={(event) => this.setState({ gender: event.target.value })}
+          >
+            <option value="" hidden>
+              Gender
+            </option>
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+            <option value="genderless">Genderless</option>
+            <option value="unknown">unknown</option>
+          </Select>
+          <Buttons>
+            <SearchButton onClick={this.searchList}>Поиск</SearchButton>
+            <AllButton onClick={this.allList} className="show-all">
+              Все персонажи
+            </AllButton>
+          </Buttons>
+          <OpenButton onClick={this.openSearch}>🔍</OpenButton>
+        </SearchBar>
         {this.state.list}
+        <Img id="logo"/>
+        {window.addEventListener("resize", (e) => {
+          this.handleResize();
+        })}
       </Body>
     );
   }

@@ -1,0 +1,14 @@
+@font-face {
+  font-family: "Anta";
+  src:url("./assets/fonts/Anta-Regular.ttf");
+}
+
+body {
+  margin: 0;
+  font-family:"Anta"
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

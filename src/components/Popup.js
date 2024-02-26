@@ -4,6 +4,7 @@ import styled from "styled-components";
 const darkBlue = "#5dbfd2";
 
 const Pop = styled.div`
+z-index: 2;
   position: fixed;
   display: flex;
   justify-content: center;
@@ -16,9 +17,9 @@ const Pop = styled.div`
 
 const Info = styled.div`
   position: sticky;
-  top: 10%;
+  top: 5%;
   background: linear-gradient(180deg, ${darkBlue} 20%, white 20%);
-  width: 40%;
+  width: 30%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;

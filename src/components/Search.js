@@ -1,167 +1,20 @@
 import React from "react";
-import styled from "styled-components";
 import AllCharacters from "./AllCharacters";
 import SearchCharacters from "./SearchCharacters";
 import logo1 from "../assets/logo1.png";
 import logo2 from "../assets/logo2.png";
+import {
+  Body,
+  SearchBar,
+  Input,
+  Select,
+  Buttons,
+  SearchButton,
+  AllButton,
+  OpenButton,
+  Img,
+} from "../assets/styles/Search.styled.ts";
 
-const darkBlue = "#5dbfd2";
-const Input = styled.input`
-  background-color: transparent;
-  border: none;
-  border-bottom: 0.2em solid white;
-  color: white;
-  margin-right: 2%;
-  &::placeholder {
-    color: white;
-  }
-  @media (max-width: 1509px) {
-    font-size: 32px;
-    margin-bottom: 5%;
-  }
-  @media (max-width: 1025px) {
-    font-size: 22px;
-  }
-  @media (max-width: 426px) {
-    font-size: 16px;
-  }
-`;
-const Select = styled.select`
-  margin-right: 2%;
-  border: none;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.2);
-  padding: 0.5% 1%;
-  &:hover {
-    background-color: white;
-    color: ${darkBlue};
-  }
-  @media (max-width: 1509px) {
-    font-size: 32px;
-    margin-bottom: 5%;
-  }
-  @media (max-width: 1025px) {
-    font-size: 22px;
-  }
-  @media (max-width: 426px) {
-    font-size: 16px;
-  }
-`;
-const SearchButton = styled.button`
-  background-color: white;
-  color: ${darkBlue};
-  font-size: 18px;
-  border: none;
-  border-radius: 20px;
-  width: 45%;
-  padding: 0.8% 2%;
-  @media (max-width: 1509px) {
-    padding: 0.8% 1%;
-    font-size: 32px;
-  }
-  @media (max-width: 1025px) {
-    font-size: 22px;
-  }
-  @media (max-width: 426px) {
-    font-size: 16px;
-  }
-`;
-const AllButton = styled.button`
-  visibility: hidden;
-  background-color: white;
-  color: ${darkBlue};
-  font-size: 18px;
-  border: none;
-  border-radius: 20px;
-  padding: 0.8% 2%;
-  width: 45%;
-  @media (max-width: 1509px) {
-    padding: 0.8% 1%;
-    font-size: 32px;
-  }
-  @media (max-width: 1025px) {
-    font-size: 22px;
-  }
-  @media (max-width: 426px) {
-    font-size: 16px;
-  }
-`;
-const OpenButton = styled.button`
-  position: absolute;
-  right: 0.7%;
-  background-color: transparent;
-  border: none;
-  font-size: 3vw;
-  @media (max-width: 1509px) {
-    font-size: 3vw;
-    top: 0;
-    background-color: ${darkBlue};
-    right: -6vw;
-    padding: 1vw 1vw 1vw 3vw;
-    border-radius: 0 20px 20px 0;
-  }
-  @media (max-width: 1025px) {
-    font-size: 4vh;
-    right: -7vh;
-    padding: 1vh 1vh 1vh 3vh;
-  }
-`;
-const Buttons = styled.div`
-  display: inline-flex;
-  justify-content: space-around;
-  width: 25%;
-  @media (max-width: 1509px) {
-    width: 100%;
-  }
-`;
-const SearchBar = styled.div`
-  z-index: 2;
-  position: sticky;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 80%;
-  top: 0;
-  margin-left: calc(-80% + 4vw);
-  background-color: ${darkBlue};
-  padding: 2% 0.5%;
-  border-radius: 0 70px 70px 0;
-  transition: margin-left 700ms;
-  @media (max-width: 1509px) {
-    flex-direction: column;
-    align-items: flex-start;
-    width: 40%;
-    margin-left: calc(-40% - 1.5vh);
-    border-radius: 0 0 20px 0;
-  }
-  @media (max-width: 946px) {
-    width: 50%;
-    margin-left: calc(-50% - 1.5vh);
-  }
-  @media (max-width: 651px) {
-    width: 70%;
-    margin-left: calc(-70% - 1vh);
-  }
-`;
-
-const Body = styled.div`
-  backdrop-filter: blur(5px);
-`;
-
-const Img = styled.img`
-  position: absolute;
-  width: 40vh;
-  height: auto;
-  margin-left: calc(50% - 20vh);
-  top: 0;
-  z-index: 1;
-  @media (max-width: 1509px) {
-    width: 40vw;
-    height: auto;
-    margin-left: calc(50% - 20vw);
-  }
-
-`;
 class Search extends React.Component {
   constructor(props) {
     super(props);
@@ -211,10 +64,6 @@ class Search extends React.Component {
   }
 
   openSearch() {
-    console.log(
-      document.getElementById("search-bar").offsetWidth /
-        document.getElementById("root").offsetWidth
-    );
     var openWidth = "";
     if (
       document.getElementById("search-bar").offsetWidth /
@@ -247,10 +96,9 @@ class Search extends React.Component {
   }
 
   handleResize() {
-    if (window.innerWidth > 1400) {
-      document.getElementById("logo").src=logo1;
-    }
-    else document.getElementById("logo").src=logo2;
+    if (window.innerWidth > 1509) {
+      document.getElementById("logo").src = logo1;
+    } else document.getElementById("logo").src = logo2;
   }
 
   componentDidMount() {
@@ -303,7 +151,7 @@ class Search extends React.Component {
           <OpenButton onClick={this.openSearch}>🔍</OpenButton>
         </SearchBar>
         {this.state.list}
-        <Img id="logo"/>
+        <Img id="logo" />
         {window.addEventListener("resize", (e) => {
           this.handleResize();
         })}

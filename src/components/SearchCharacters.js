@@ -1,10 +1,13 @@
 import React from "react";
-import { List, Character, Name, Field, Photo } from "./AllCharacters";
-import styled from "styled-components";
-
-const H1 = styled.h1`
-  font-weight: lighter;
-`;
+import {
+  List,
+  Character,
+  Name,
+  Field,
+  Photo,
+  H1,
+} from "../assets/styles/Character.styled.ts";
+import Popup from "./Popup";
 
 class SearchCharacters extends React.Component {
   constructor(props) {
@@ -14,6 +17,8 @@ class SearchCharacters extends React.Component {
       error: null,
       isLoaded: false,
       chList: [],
+      trigger: false,
+      url: "",
     };
   }
 
@@ -68,7 +73,16 @@ class SearchCharacters extends React.Component {
         <List>
           {this.state.chList.map((item) => (
             <Character>
-              <Photo src={item.image} alt={`character_${item.id}`} />
+              <Photo
+                src={item.image}
+                alt={`character_${item.id}`}
+                onClick={() =>
+                  this.setState({
+                    trigger: true,
+                    url: `https://rickandmortyapi.com/api/character/${item.id}`,
+                  })
+                }
+              />
               <Name>Name: {item.name}</Name>
               <Name>ID: {item.id}</Name>
               <Field>Status: {item.status}</Field>
@@ -77,6 +91,11 @@ class SearchCharacters extends React.Component {
               <Field>Gender: {item.gender}</Field>
             </Character>
           ))}
+          <Popup
+            trigger={this.state.trigger}
+            url={this.state.url}
+            closePopup={() => this.setState({ trigger: false })}
+          />
         </List>
       );
     else return <H1>Sorry, no characters 🙁</H1>;

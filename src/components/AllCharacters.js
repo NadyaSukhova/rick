@@ -1,36 +1,12 @@
 import React from "react";
 import Popup from "./Popup";
-import styled from "styled-components";
-
-const List = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  padding: 5vh 2vh;
-`;
-const Character = styled.div`
-  background-color: white;
-  border-radius: 20px 20px 0 0;
-  margin-bottom: 5vh;
-  padding: 0 0 5vh;
-`;
-
-const Name = styled.div`
-  font-size: 18px;
-  font-weight: 500;
-  margin: 0 2%;
-  &:nth-child(3) {
-    margin-bottom: 6%;
-  }
-`;
-const Field = styled.p`
-  margin: 1% 2%;
-`;
-const Photo = styled.img`
-  width: 100%;
-  border-radius: 20px 20px 0 0;
-  margin-bottom: 2%;
-`;
+import {
+  List,
+  Character,
+  Name,
+  Field,
+  Photo,
+} from "../assets/styles/Character.styled.ts";
 
 class AllCharacters extends React.Component {
   constructor(props) {
@@ -115,7 +91,12 @@ class AllCharacters extends React.Component {
               <Photo
                 src={item.image}
                 alt={`character_${item.id}`}
-                onClick={() => this.setState({trigger: true, url: `https://rickandmortyapi.com/api/character/${item.id}`})}
+                onClick={() =>
+                  this.setState({
+                    trigger: true,
+                    url: `https://rickandmortyapi.com/api/character/${item.id}`,
+                  })
+                }
               />
               <Name>Name: {item.name}</Name>
               <Name>ID: {item.id}</Name>
@@ -125,7 +106,11 @@ class AllCharacters extends React.Component {
               <Field>Gender: {item.gender}</Field>
             </Character>
           ))}
-          <Popup trigger={this.state.trigger} url={this.state.url} closePopup={() => this.setState({trigger: false})}/>
+          <Popup
+            trigger={this.state.trigger}
+            url={this.state.url}
+            closePopup={() => this.setState({ trigger: false })}
+          />
         </List>
       );
     }
@@ -133,4 +118,3 @@ class AllCharacters extends React.Component {
 }
 
 export default AllCharacters;
-export { Character, List, Photo, Name, Field };
